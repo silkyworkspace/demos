@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ドロワーメニューの実装</title>
+
+    <!-- ファビコン -->
+    <link rel="icon" type="image/png" href="images/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="images/favicon/favicon.svg">
+    <link rel="shortcut icon" href="images/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="images/favicon/site.webmanifest">
+
+    <!-- Googleフォント -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- リセットCSS -->
+    <link rel="stylesheet" href="https://unpkg.com/ress@4.0.0/dist/ress.min.css">
+
+    <!-- スタイルCSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="wrapper">
+            <h1>ドロワーメニューの実装</h1>
+
+            <button type="button" id="drawer-icon">
+                <span></span>
+            </button>
+            <nav id="gnav">
+                <ul>
+                    <li><a href="#about">ドロワーメニューとは？</a></li>
+                    <li><a href="#merits">メリット</a></li>
+                    <li><a href="#demerits">デメリット</a></li>
+                    <li><a href="#usage">使われる場面</a></li>
+                    <li><a href="#implement">実装の概要</a></li>
+                    <li><a href="#summary">まとめ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="wrapper">
+            <section id="about">
+                <h2>ドロワーメニューとは？</h2>
+                <p>ドロワーメニューとは、画面の端からスライドして表示されるナビゲーションメニューのことです。特にモバイルサイトでよく使われ、「ハンバーガーメニュー」とも呼ばれます。</p>
+            </section>
+            <section id="merits">
+                <h2>ドロワーメニューのメリット</h2>
+                <p>画面を広く使えるのが大きな利点です。メニューを常時表示しないことで、ユーザーにとって情報が見やすくなります。シンプルなデザインにしやすい点も魅力です。</p>
+            </section>
+            <section id="demerits">
+                <h2>ドロワーメニューのデメリット</h2>
+                <p>メニューが隠れているため、ユーザーが存在に気づかないことがあります。重要なリンクを入れすぎると、アクセス性が下がることも。</p>
+            </section>
+            <section id="usage">
+                <h2>使われる場面</h2>
+                <p>ドロワーメニューは主にスマートフォン向けのWebサイトで活用されます。近年ではPC版でもシンプルなUIを求めるサイトで使用されることも増えています。</p>
+            </section>
+            <section id="implement">
+                <h2>実装の概要</h2>
+                <p>JavaScriptでボタンクリック時にクラスを付け替えて、表示・非表示を切り替えるのが一般的です。CSSのアニメーションを組み合わせることで自然な動作が可能です。</p>
+            </section>
+            <section id="summary">
+                <h2>まとめ</h2>
+                <p>ドロワーメニューはスペースの節約に効果的なUIです。ユーザーにとって分かりやすく、気づきやすい設計にすることが大切です。</p>
+            </section>
+        </div>
+        <footer>
+            <div class="wrapper">
+                <p>&copy;<span id="year"></span> edu-kitamura</p>
+            </div>
+        </footer>
+    </main>
+    <script src="js/script.js"></script>
+    <script src="js/drawer.js"></script>
+</body>
+
+</html>
