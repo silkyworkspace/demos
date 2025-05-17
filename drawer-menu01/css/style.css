@@ -51,6 +51,7 @@ section {
     height: 60vh;
     padding: 0 20px;
     margin-bottom: 32px;
+    scroll-margin-top: 80px;/* スクロールされたときの表示位置を調整 */
 }
 
 /****** ヘッダー ******/
@@ -228,10 +229,6 @@ footer p {
 
     main {
         padding-top: 100px;
-    }
-
-    section {
-        scroll-margin-top: 80px; /* スクロールされたときの表示位置を調整 */
     }
 
 }
