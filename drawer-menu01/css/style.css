@@ -161,6 +161,10 @@ header {
     bottom: 0;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 /****** フッター ******/
 footer {
     padding: 14px 0;
