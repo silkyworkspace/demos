@@ -131,7 +131,7 @@ header {
     bottom: 100%;
     z-index: 900;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     background: rgba(0, 0, 0, 0.8);
     transition: bottom 1s;
     /* allにするとドロワーが一瞬表示されるのでbottomにtransitionの指定 */
