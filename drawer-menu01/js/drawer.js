@@ -1,11 +1,9 @@
 // ドロワーメニュー
-
 const drawerBtn = document.getElementById('drawer-icon');
 const gNav = document.getElementById('gnav');
 const gLink = document.querySelectorAll('#gnav a');
 const header = document.querySelector('header');
 const headerHeight = header.offsetHeight;
-
 
 // ドロワーアイコンの色の切り替え関数
 function updateDrawerIconColor() {
@@ -18,13 +16,20 @@ function updateDrawerIconColor() {
     } else {
         drawerBtn.classList.add('scrolled');
     }
+
+    // ドロワーメニューが開いているとき、スクロール制御
+    if (isMenuOpen) {
+        document.body.classList.add('no-scroll');
+    } else {
+        document.body.classList.remove('no-scroll');
+    }
 }
 
 // ドロワーメニュー開閉処理
 drawerBtn.addEventListener('click', () => {
     drawerBtn.classList.toggle('active');
     gNav.classList.toggle('open');
-    updateDrawerIconColor(); 
+    updateDrawerIconColor();
 });
 
 // ドロワーメニュー内リンククリックで閉じる（既存）
@@ -32,7 +37,7 @@ gLink.forEach((link) => {
     link.addEventListener('click', () => {
         drawerBtn.classList.remove('active');
         gNav.classList.remove('open');
-        updateDrawerIconColor(); 
+        updateDrawerIconColor();
     });
 });
 
