@@ -92,6 +92,10 @@ max-width: 1140pxの部分は調整してください。 */
         margin: 0 auto;
     }
 
+    #attraction ul li {
+    padding: 10px 10px 16px;
+}
+
     #attraction ul li dl {
         display: block;
     } 
