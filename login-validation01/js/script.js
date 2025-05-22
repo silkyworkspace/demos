@@ -14,6 +14,9 @@ function validateEmail() {
     if (!emailValue) {
         emailError.textContent = 'メールアドレスを入力してください';
         return false;
+    } else if (emailValue.length > 254) {
+        emailError.textContent = 'パスワードは254文字以内で入力してください';
+        return false;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
         emailError.textContent = '正しいメールアドレスの形式で入力してください';
         return false;
@@ -30,6 +33,13 @@ function validatePassword() {
         passwordError.textContent = 'パスワードを入力してください';
         return false;
     } else if (passwordValue.length < 8) {
+        passwordError.textContent = 'パスワードは8文字以上必要です';
+        return false;
+    } else if (passwordValue.length > 128) {
+        passwordError.textContent = 'パスワードは128文字以内で入力してください';
+        return false;
+    }
+    else if (passwordValue.length < 8) {
         passwordError.textContent = 'パスワードは8文字以上必要です';
         return false;
     } else {
