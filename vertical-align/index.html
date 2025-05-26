@@ -22,7 +22,7 @@
             <h2>vertical-alignプロパティとは</h2>
             <img src="images/vertical-align.svg" alt="">
             <p>主に<span>インライン要素（テキストや画像など）</span>や<span>テーブルセル内のコンテンツ</span>が、<br>
-            行ボックスやセル内で垂直方向にどこに配置されるかを指定するためのもの。</p>
+                行ボックスやセル内で垂直方向にどこに配置されるかを指定するためのもの。</p>
             <p>値は上記の赤字以外にも多数あります。（★の値を利用することが多い）</p>
         </section>
 
@@ -76,6 +76,10 @@
     <footer>
         <small>&copy; <span id="year"></span> edu-kitamura</small>
     </footer>
+    <script>
+        const yearSpan = document.getElementById('year');
+        yearSpan.textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>
