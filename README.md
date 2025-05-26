@@ -24,3 +24,9 @@ https://silkyworkspace.github.io/demos/drawer-menu01/index.html
 - input・blur・submitの組み合わせ
 - パスワードの表示・非表示
 https://silkyworkspace.github.io/demos/login-validation01/index.html
+
+## vertical-align
+- vertical-alignの値の違いを確認
+- 画像の場合
+- テーブルの場合
+https://silkyworkspace.github.io/demos/vertical-align/index.html
