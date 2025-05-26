@@ -6,29 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>vertical-align</title>
     <!-- リセットcss -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css"> -->
     <!-- スタイルcss -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <header>
-        <h1>vertical-alignの違いを体感しよう</h1>
+        <h1>vertical-alignを体感しよう</h1>
     </header>
 
     <main>
-        <!-- 画像のサンプル -->
-        <section id="sample-img">
-            <h2>画像の場合</h2>
-            <p>親要素
-                <img src="images/vertical-align.webp" alt="" width="800" height="267">
-                親要素
+        <!-- vertical-alignプロパティとは -->
+        <section id="about">
+            <h2>vertical-alignプロパティとは</h2>
+            <img src="images/vertical-align.svg" alt="">
+            <p>主に<span>インライン要素（テキストや画像など）</span>や<span>テーブルセル内のコンテンツ</span>が、<br>
+            行ボックスやセル内で垂直方向にどこに配置されるかを指定するためのもの。</p>
+            <p>値は上記の赤字以外にも多数あります。（★の値を利用することが多い）</p>
+        </section>
+
+        <!-- テキストのサンプル -->
+        <section id="sample-txt">
+            <h3>テキスト（インライン要素）の場合</h3>
+            <p>
+                親
+                <span>abcdefg</span>
             </p>
         </section>
 
+        <!-- 画像のサンプル -->
+        <section id="sample-img">
+            <h3>画像（インライン要素）の場合</h3>
+            <div>
+                親
+                <img src="images/bekobe.webp" alt="" width="640" height="360">
+            </div>
+        </section>
+
         <!-- 表のサンプル -->
-        <section>
-            <h2>表の場合</h2>
+        <section id="sample-table">
+            <h3>表（テーブルセル）の場合</h3>
             <table>
                 <tr>
                     <th>どうぶつ</th>
