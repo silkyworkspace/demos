@@ -1,10 +1,18 @@
 @charset "utf-8";
+
 /***** 共通設定 *****/
 body {
     font-size: 16px;
+    font-family: sans-serif;
     line-height: 1.5;
     color: #2b2b2b;
     background-color: #fff;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    /* vertical-align: bottom; */
 }
 
 section {
@@ -22,20 +30,60 @@ h2 {
     padding: 10px 0;
 }
 
-/***** 画像のサンプル *****/
-img {
-    max-width: 100%;
-    height: auto;
-    vertical-align: middle;
-    width: 540px;
+h3 {
+    font-size: 18px;
+    font-weight: 700;
+    padding-left: 10px;
+    border-left: 6px solid #01e2ff;
+    border-radius: 4px;
+    margin-bottom: 8px;
 }
 
-p {
-    background-color: #88d9ff;
+/***** vertical-alignプロパティとは *****/
+#about img {
+    max-width: 700px;
+}
+
+#about span {
+    font-weight: 700;
+    background-color: #ffda32;
+}
+
+/***** テキストのサンプル *****/
+#sample-txt p {
+    font-size: 60px;
+    line-height: 1.7;
+    background-color: #2d9beb;
+    color: #2f80ea;
+    margin: 0;
+}
+
+#sample-txt span {
+    font-family: serif;
+    letter-spacing: .03em;
+    font-size: 24px;
+    line-height: 24px;
+    color: #2b2b2b;
+    background-color: #ffeb3b;
+    /* vertical-align: bottom; */
+}
+
+/***** 画像のサンプル *****/
+#sample-img div {
+    font-size: 80px;
+    line-height: 1.7;
+    background-color: #2d9beb;
+    color: #2f80ea;
+}
+
+#sample-img img {
+    width: 200px;
+    vertical-align: baseline;
 }
 
 /***** 表のサンプル *****/
 table {
+    border-collapse: collapse;
     width: 420px;
 }
 
@@ -45,8 +93,9 @@ td {
 }
 
 th {
-    background-color: #7ce9b0;
+    text-align: left;
     height: 40px;
+    background-color: #2d9beb;
 }
 
 th:first-child {
