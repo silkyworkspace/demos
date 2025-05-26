@@ -51,7 +51,8 @@ section {
     height: 60vh;
     padding: 0 20px;
     margin-bottom: 32px;
-    scroll-margin-top: 80px;/* スクロールされたときの表示位置を調整 */
+    scroll-margin-top: 80px;
+    /* スクロールされたときの表示位置を調整 */
 }
 
 /****** ヘッダー ******/
@@ -169,12 +170,8 @@ header {
 /****** フッター ******/
 footer {
     padding: 14px 0;
-}
-
-footer p {
     text-align: center;
 }
-
 
 @media (min-width: 769px) {
     a:hover {
