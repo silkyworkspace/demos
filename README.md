@@ -30,3 +30,9 @@ https://silkyworkspace.github.io/demos/login-validation01/index.html
 - 画像の場合
 - テーブルの場合
 https://silkyworkspace.github.io/demos/vertical-align/index.html
+
+## すりガラス風ヘッダー
+-  `backdrop-filter: blur(**px);`の利用
+-  `background-color`は不透明度を0.5などに調整
+-  Safari対応必要
+https://silkyworkspace.github.io/demos/header-frosted-glass01/index.html
