@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background: #000;
+    color: #fff;
+}
+
+/* 固定ヘッダー */
+header {
+    height: 77px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+
+    /****** すりガラス効果 *******/
+    /* 半透明の背景 */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* ぼかし効果 */
+    backdrop-filter: blur(10px);
+    /* Safari対応 */
+    /* -webkit-backdrop-filter: blur(10px); */
+
+    /* オプション: 境界線でより洗練された見た目に */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+nav a:hover {
+    opacity: 0.7;
+}
+
+/* メインコンテンツ */
+main {
+    padding-top: 77px;
+    /* ヘッダーの高さ分の余白 */
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.content-section {
+    padding: 100px 40px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.content-section:nth-child(even) {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.content-box {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+}
