@@ -35,3 +35,17 @@ https://silkyworkspace.github.io/demos/vertical-align
 -  `backdrop-filter: blur(**px);`の利用
 -  `background-color`は不透明度を0.5などに調整
 https://silkyworkspace.github.io/demos/header-frosted-glass01
+
+## 画像上にテキストを表示(HTMLとCSSのみ)
+- positionで画像とテキストを重ねる
+- 通常時は、テキスト部分の`opacity: 0;`
+- hover時は、テキスト部分の`opacity: 1;`にする
+- メディアクエリで768px以下なら`position: static;`に戻し、テキストは常に表示
+https://silkyworkspace.github.io/demos/hover-text-css
+
+## 画像上にテキストを表示(HTMLとCSSとJS)
+- positionで画像とテキストを重ねる
+- jsで`.is-active`クラスを付与と削除
+- jsでタッチデバイスかどうかの判定
+- タッチデバイスの場合は、クリックイベント。PCの場合はマウスの出入りを検知
+https://silkyworkspace.github.io/demos/hover-text-js
