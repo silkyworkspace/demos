@@ -14,15 +14,16 @@
 <body>
     <header>
         <h1>動物紹介</h1>
-        <p>
-            <span class="sp_block">画像にhoverで説明を表示します。</span>
-            <span class="sp_block">768px以内では常に説明文を表示します。</span>
-        </p>
     </header>
 
     <main>
         <section id="sec01" class="section">
             <h2>HTMLとCSSで実装</h2>
+            <p>
+                <span>hover対応端末：画像上に説明を表示</span>
+                <span>hover非対応端末：説明を下に常に表示</span>
+            </p>
+            <!-- グリッドレイアウト部分 -->
             <ul class="grid_container">
                 <li class="grid_item">
                     <div class="item_img"><img src="images/cat.webp" alt="黒背景でこちらを見るキジトラ猫の顔アップ"></div>
@@ -90,13 +91,12 @@
                         </div>
                     </div>
                 </li>
-            </ul> <!-- grid_container -->
+            </ul> <!-- .grid_container -->
         </section>
     </main>
     <footer>
         <p><small>&copy; div.sawa</small></p>
     </footer>
-
 </body>
 
 </html>

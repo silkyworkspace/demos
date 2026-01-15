@@ -35,10 +35,10 @@ https://silkyworkspace.github.io/demos/vertical-align
 https://silkyworkspace.github.io/demos/header-frosted-glass01
 
 ## 画像上にテキストを表示(HTMLとCSSのみ)
-- positionで画像とテキストを重ねる
-- 通常時は、テキスト部分の`opacity: 0;`
-- hover時は、テキスト部分の`opacity: 1;`にする
-- メディアクエリで768px以下なら`position: static;`に戻し、テキストは常に表示
+- デフォルト（hover非対応：スマホ/タブレット想定）説明文は画像の「下」に常時表示
+`@media (hover: hover)`
+- hover対応デバイスだけ上書き 説明文は画像の上に重ね、hover時のみ表示
+- 
 https://silkyworkspace.github.io/demos/hover-text-css
 
 ## 画像上にテキストを表示(HTMLとCSSとJS)
