@@ -64,56 +64,59 @@ footer {
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, 300px);
-    /* 幅300pxの列（カラム）を、入るだけ自動で並べる */
     gap: 1rem;
     max-width: 1240px;
     margin: 0 auto;
 }
 
+/* ===== デフォルト（hover非対応：スマホ/タブレット想定） ===== */
+/* 説明文は画像の「下」に常時表示 */
+
 .grid_item {
-    position: relative;
+    position: static;
 }
 
 .text_container {
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: auto;
     padding: 1rem;
-    background-color: rgba(0, 0, 0, .8);
+    background-color: #333;
     color: #fff;
     display: grid;
     place-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    opacity: 0;
-    transition: all .3s;
-}
-
-.text_container:hover {
+    position: static;
     opacity: 1;
+    transition: opacity .3s;
 }
 
-/* レスポンシブ */
-@media (max-width: 768px) {
+/* ===== hover対応デバイスだけ上書き ===== */
+/* 説明文は画像の上に重ね、hover時のみ表示 */
 
-    /*********** 共通設定 ***********/
-    .sp_block {
-        display: block;
-    }
-
-    /*********** グリッドレイアウト部分 ***********/
+@media (hover: hover) {
     .grid_item {
-        position: static;
+        position: relative;
     }
 
     .text_container {
-        width: 100%;
-        height: auto;
-        position: static;
-        background-color: #333;
-        color: #fff;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, .8);
+        opacity: 0;
+    }
+
+    /* 画像（＝li全体）にhoverで表示 */
+    .grid_item:hover .text_container {
         opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .sp_block {
+        display: block;
     }
 
     .text p {
