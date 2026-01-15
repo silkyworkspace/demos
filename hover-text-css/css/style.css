@@ -26,7 +26,7 @@ h1 {
 
 h2 {
     font-size: 1.4rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 h3 {
@@ -41,14 +41,18 @@ header {
     margin-bottom: 2rem;
 }
 
-header p {
-    text-align: center;
-    margin-top: 1rem;
-}
-
 /*** section ***/
 .section {
     padding: 2rem 1rem;
+}
+
+.section > p {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.section > p span {
+    display: block;
 }
 
 /*** footer ***/
@@ -89,6 +93,10 @@ footer {
     transition: opacity .3s;
 }
 
+.text p {
+    height: 8rem;
+}
+
 /* ===== hover対応デバイスだけ上書き ===== */
 /* 説明文は画像の上に重ね、hover時のみ表示 */
 
@@ -112,14 +120,8 @@ footer {
     .grid_item:hover .text_container {
         opacity: 1;
     }
-}
-
-@media (max-width: 768px) {
-    .sp_block {
-        display: block;
-    }
 
     .text p {
-        height: 8rem;
+        height: auto;
     }
 }
