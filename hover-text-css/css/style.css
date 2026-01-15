@@ -99,8 +99,12 @@ footer {
 
 /* ===== hover対応デバイスだけ上書き ===== */
 /* 説明文は画像の上に重ね、hover時のみ表示 */
+/*
+hover: hover → hoverできる環境
+pointer: fine → マウスなど精密なポインティングデバイス
+*/
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
     .grid_item {
         position: relative;
     }
