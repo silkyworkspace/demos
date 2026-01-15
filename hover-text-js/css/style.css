@@ -26,7 +26,7 @@ h1 {
 
 h2 {
     font-size: 1.4rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 h3 {
@@ -41,14 +41,18 @@ header {
     margin-bottom: 2rem;
 }
 
-header p {
-    text-align: center;
-    margin-top: 1rem;
-}
-
 /*** section ***/
 .section {
     padding: 2rem 1rem;
+}
+
+.section > p {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.section > p span {
+    display: block;
 }
 
 /*** footer ***/
@@ -92,13 +96,4 @@ footer {
 
 .text_container.is-active {
     opacity: 1;
-}
-
-/* レスポンシブ */
-@media (max-width: 647px) {
-
-    /*********** 共通設定 ***********/
-    .sp_block {
-        display: block;
-    }
 }
