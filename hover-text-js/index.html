@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像の上に説明文を重ねる HTML/CSS/JS</title>
+    <!-- リセットCSSの読み込み -->
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- 自作CSSの読み込み -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jsの読み込み -->
+    <script type="module" src="js/script.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>動物紹介</h1>
+        <p>
+            <span class="sp_block">画像にhover（PC）、タップ（SPとTB）で</span>
+            <span class="sp_block">説明を表示します。</span>
+        </p>
+    </header>
+
+    <main>
+        <section id="sec01" class="section">
+            <h2>HTMLとCSSとJSで実装</h2>
+            <ul class="grid_container">
+                <li class="grid_item">
+                    <div class="item_img"><img src="images/cat.webp" alt="黒背景でこちらを見るキジトラ猫の顔アップ"></div>
+                    <div class="text_container">
+                        <div class="text">
+                            <h3>猫</h3>
+                            <p>
+                                大きな瞳でこちらを見つめるネコのアップ。繊細なヒゲと柔らかな毛並みが引き立つ。好奇心と少しの警戒が混ざった表情が愛らしい。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid_item">
+                    <div class="item_img"><img src="images/dog.webp" alt="首輪をつけて正面を見る白黒の犬のポートレート"></div>
+                    <div class="text_container">
+                        <div class="text">
+                            <h3>犬</h3>
+                            <p>
+                                白黒の毛並みが印象的なイヌのポートレート。片耳の立ち方が個性を感じさせる。まっすぐな視線に、誠実さと優しさがにじむ。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid_item">
+                    <div class="item_img"><img src="images/duck.webp" alt="草むらに立つアヒル"></div>
+                    <div class="text_container">
+                        <div class="text">
+                            <h3>アヒル</h3>
+                            <p>
+                                草地にたたずむアヒル。灰色の羽根の層とオレンジのくちばしが映える。首を伸ばした姿が凛として、静かな自然の空気を伝える。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid_item">
+                    <div class="item_img"><img src="images/elephant.webp" alt="浜辺を歩くゾウ"></div>
+                    <div class="text_container">
+                        <div class="text">
+                            <h3>象</h3>
+                            <p>
+                                モノクロの浜辺を悠然と歩くゾウ。大きな耳と深い皺、力強い鼻が存在感を放つ。波音が聞こえそうな静けさの中、堂々とした一歩が印象的。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid_item">
+                    <div class="item_img"><img src="images/leopard.webp" alt="木の上で横たわるヒョウ"></div>
+                    <div class="text_container">
+                        <div class="text">
+                            <h3>ヒョウ</h3>
+                            <p>
+                                木の幹に寄りかかり休むヒョウ。斑点模様としなやかな体つきが美しい。リラックスした姿でも瞳は鋭く、野性の緊張感が漂う。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid_item">
+                    <div class="item_img"><img src="images/panda.webp" alt="座ってこちらを見るジャイアントパンダ"></div>
+                    <div class="text_container">
+                        <div class="text">
+                            <h3>パンダ</h3>
+                            <p>
+                                丸い体のパンダがこちらを見上げる一枚。白黒の模様とふわふわの毛並みが愛嬌たっぷり。穏やかな雰囲気に癒やされる。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul> <!-- grid_container -->
+        </section>
+    </main>
+    <footer>
+        <p><small>&copy; div.sawa</small></p>
+    </footer>
+
+</body>
+
+</html>

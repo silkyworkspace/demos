@@ -1,0 +1,122 @@
+@charset "utf-8";
+
+/*********** 共通設定 ***********/
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: .05em;
+    color: #333;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 700;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+/*** header ***/
+header {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+header p {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/*** section ***/
+.section {
+    padding: 2rem 1rem;
+}
+
+/*** footer ***/
+footer {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/*********** グリッドレイアウト部分 ***********/
+.grid_container {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 300px);
+    /* 幅300pxの列（カラム）を、入るだけ自動で並べる */
+    gap: 1rem;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.grid_item {
+    position: relative;
+}
+
+.text_container {
+    width: 300px;
+    height: 300px;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, .8);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    opacity: 0;
+    transition: all .3s;
+}
+
+.text_container:hover {
+    opacity: 1;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+
+    /*********** 共通設定 ***********/
+    .sp_block {
+        display: block;
+    }
+
+    /*********** グリッドレイアウト部分 ***********/
+    .grid_item {
+        position: static;
+    }
+
+    .text_container {
+        width: 100%;
+        height: auto;
+        position: static;
+        background-color: #333;
+        color: #fff;
+        opacity: 1;
+    }
+
+    .text p {
+        height: 8rem;
+    }
+}
