@@ -11,19 +11,34 @@ const errorPassword = document.getElementById('error_user_password');
 // 2. 二重送信防止のためのフラグ
 let isSubmitting = false;
 
-/**
- * 3-10で await する「擬似ログインAPI」
- * - 成功：ユーザー情報を返す
- * - 失敗：Error を投げる（= await 側で catch できる）
- */
+
+// 「非同期でログイン処理を行い、成功・認証失敗・ネットワークエラーの3パターンを返す擬似API」
+// 1. 成功 (userName: 'abc', password: 'password123') → resolve
+// 2. 認証失敗 (上記以外) → reject + AUTH_ERROR
+// 3. ネットワークエラー (10%の確率) → reject + NETWORK_ERROR
 const fakeLoginApi = {
     login({ userName, password }) {
         return new Promise((resolve, reject) => {
+            // ネットワークエラーのシミュレーション（10%の確率）
+            if (Math.random() < 0.1) {
+                setTimeout(() => {
+                    const error = new Error('ネットワークエラーが発生しました');
+                    error.type = 'NETWORK_ERROR';
+                    reject(error);
+                }, 500);
+                return;
+            }
+
             const ok = userName === 'abc' && password === 'password123';
 
             setTimeout(() => {
-                if (ok) resolve({ userName });
-                else reject(new Error('ユーザーネームまたはパスワードが違います'));
+                if (ok) {
+                    resolve({ userName });
+                } else {
+                    const error = new Error('ユーザーネームまたはパスワードが違います');
+                    error.type = 'AUTH_ERROR';
+                    reject(error);
+                }
             }, 800);
         });
     },
@@ -94,9 +109,21 @@ loginForm.addEventListener('submit', async (e) => {
 
         // 3-12. フォームをリセット（成功時だけ）
         loginForm.reset();
+
     } catch (err) {
-        // 「サーバー側の失敗」をここで受け取る
-        errorLogin.textContent = err.message;
+        // API呼び出しの失敗（認証失敗・通信エラー等）をここで受け取る
+        if (err.type === 'AUTH_ERROR') {
+            // 認証エラー
+            errorLogin.textContent = err.message;
+        } else if (err.type === 'NETWORK_ERROR') {
+            // ネットワークエラー
+            errorLogin.textContent = err.message;
+        } else {
+            // その他の予期しないエラー
+            errorLogin.textContent = '予期しないエラーが発生しました';
+            console.error(err); // 開発者用ログ
+        }
+
     } finally {
         // 3-13. 元に戻す（成功/失敗どちらでも最後に実行 = 後片付け）
         isSubmitting = false;
