@@ -59,7 +59,7 @@ loginForm.addEventListener('submit', async (e) => {
         return; // 送信中なら何もしない
     }
 
-    // 3-4. バリデーション
+    // 3-4. 入力値の取得(両端の空白は除く)
     const userName = userNameInput.value.trim();
     const password = passwordInput.value.trim();
 
