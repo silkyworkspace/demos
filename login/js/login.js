@@ -73,6 +73,9 @@ loginForm.addEventListener('submit', async (e) => {
     } else if (userName.length < 3) {
         errorUserName.textContent = 'ユーザーネームは3文字以上入力してください';
         hasError = true;
+    } else if (userName.length > 50) {
+        errorUserName.textContent = 'ユーザーネームは50文字以内で入力してください';
+        hasError = true;
     } else if (!/^[a-zA-Z0-9]+$/.test(userName)) {
         errorUserName.textContent = 'ユーザーネームは半角英数字で入力してください';
         hasError = true;
@@ -84,6 +87,9 @@ loginForm.addEventListener('submit', async (e) => {
         hasError = true;
     } else if (password.length < 8) {
         errorPassword.textContent = 'パスワードは8文字以上入力してください';
+        hasError = true;
+    } else if (password.length > 50) {
+        errorPassword.textContent = 'パスワードは50文字以内で入力してください';
         hasError = true;
     } else if (!/^[a-zA-Z0-9]+$/.test(password)) {
         errorPassword.textContent = 'パスワードは半角英数字で入力してください';
