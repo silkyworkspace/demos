@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>モーダル(クラス操作)</title>
+    <!-- リセットCSS -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- 自作のCSS -->
+    <link rel="stylesheet" href="css/modal.css">
+    <!-- JS -->
+    <script type="module" src="js/modal.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>クラスの付け外しでDOM操作</h1>
+    </header>
+    <main>
+        <section>
+            <h2>モーダルウィンドウ</h2>
+            <p>ボタンをクリックすると、クラスの追加・削除によってモーダルが表示/非表示されます。</p>
+            <div class="button_wrap">
+                <button id="open_modal" class="app_btn">モーダルを開く</button>
+            </div>
+        </section>
+    </main>
+    <!-- モーダル -->
+    <div id="modal" class="modal">
+        <!-- オーバーレイ -->
+        <div class="modal_overlay"></div>
+        <!-- モーダルコンテント -->
+        <div class="modal_content">
+            <button class="x_btn modal_close">&times;</button>
+            <p>
+                <span class="block">これはクラス操作で表示/非表示を切り替える</span>
+                <span class="block">モーダルウィンドウです。</span>
+            </p>
+            <p>以下のいずれかの方法で閉じることができます：</p>
+            <ul>
+                <li>×ボタンをクリック</li>
+                <li>背景（オーバーレイ）をクリック</li>
+                <li>ESCキーを押す</li>
+                <li>「閉じる」ボタンをクリック</li>
+            </ul>
+            <button class="app_btn modal_close">閉じる</button>
+        </div><!-- .modal_content -->
+    </div><!-- .modal -->
+    <footer>
+        <p><small>&copy; div.sawa</small></p>
+    </footer>
+</body>
+
+</html>
