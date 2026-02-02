@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン(検証 + 二重送信防止)</title>
+    <!-- リセットCSS -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- 自作のCSS -->
+    <link rel="stylesheet" href="css/login.css">
+    <!-- JS -->
+    <script type="module" src="js/login.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>入力値の検証と二重送信防止</h1>
+    </header>
+    <main>
+        <form action="#" method="post" id="login_form">
+            <div class="form_content">
+                <h2>ログイン</h2>
+
+                <!-- 共通エラーメッセージ領域(認証失敗用
+                 ) -->
+                <p class="error_message" id="error_login"></p>
+
+                <div class="form_item">
+                    <label for="user_name">ユーザーネーム</label>
+                    <input type="text" name="user_name" id="user_name" placeholder="半角英数3文字以上">
+                    <!-- ユーザーネーム エラーメッセージ領域 -->
+                    <p class="error_message" id="error_user_name"></p>
+                </div>
+                <div class="form_item">
+                    <label for="user_password">パスワード</label>
+                    <input type="password" name="user_password" id="user_password" placeholder="半角英数8文字以上">
+                    <!-- パスワード エラーメッセージ領域 -->
+                    <p class="error_message" id="error_user_password"></p>
+                </div>
+                <div class="form_item">
+                    <input type="submit" name="submit" value="ログイン" id="submit_button">
+                </div>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p><small>&copy; div.sawa</small></p>
+    </footer>
+</body>
+
+</html>

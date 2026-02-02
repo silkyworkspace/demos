@@ -1,0 +1,249 @@
+@charset "utf-8";
+
+/*********** 共通設定 ***********/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: .05em;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2 {
+    font-weight: 700;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.block {
+    display: block;
+}
+
+/*** header ***/
+header {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+/*** main ***/
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+/*** footer ***/
+footer {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/*********** ボタン ***********/
+.button_wrap {
+    text-align: center;
+}
+
+.app_btn {
+    padding: 0.75rem 1.5rem;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.app_btn:hover {
+    background-color: #357abd;
+}
+
+/*********** モーダル ***********/
+/* モーダルコンテナ - デフォルトは非表示 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+/* is_openクラスが付くと表示される */
+.modal.is_open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* オーバーレイ（背景の暗い部分） */
+.modal_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+/* モーダルコンテンツ */
+.modal_content {
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1001;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+/* 閉じるボタン（×） */
+.x_btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s;
+    padding: 0;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+
+}
+
+.x_btn:hover {
+    color: #333;
+}
+
+/* 閉じるボタン（下部） */
+.modal_content>.app_btn.modal_close {
+    margin-top: 1rem;
+}
+
+/* モーダル内のリスト */
+.modal_content ul {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.modal_content li {
+    margin-bottom: 0.5rem;
+}
+
+/*********** アニメーション ***********/
+
+/* フェードインアニメーション */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* スライドアップアニメーション */
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/*********** レスポンシブ対応 ***********/
+
+/* タブレット以下 */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .modal_content {
+        padding: 1.5rem;
+    }
+}
+
+/* スマートフォン */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+    }
+
+    header,
+    footer {
+        padding: 0.75rem;
+    }
+
+    .modal_content {
+        padding: 1rem;
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .modal_content>.modal_close:first-child {
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+
+    .app_btn {
+        padding: 0.625rem;
+        font-size: 0.9375rem;
+    }
+}

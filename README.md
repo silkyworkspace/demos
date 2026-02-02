@@ -50,3 +50,20 @@ https://silkyworkspace.github.io/demos/hover-text-css
 - タッチデバイスの場合は、クリックイベント。PCの場合はマウスの出入りを検知
 
 https://silkyworkspace.github.io/demos/hover-text-js
+
+
+## ログイン画面
+- 二重送信防止
+- 入力値のバリデーション
+- 擬似ログインAPI(関数で作成)を利用
+- 正規表現
+
+https://silkyworkspace.github.io/demos/login
+
+## モーダル
+- ボタンをクリックすると、クラスの追加・削除によってモーダルが表示/非表示
+- 以下のいずれかの方法で閉じることができます
+    - ×ボタンをクリック
+    - 背景（オーバーレイ）をクリック
+    - ESCキーを押す
+    - 「閉じる」ボタンをクリック
