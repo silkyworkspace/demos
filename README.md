@@ -69,3 +69,11 @@ https://silkyworkspace.github.io/demos/login
     - 「閉じる」ボタンをクリック
 
 https://silkyworkspace.github.io/demos/modal
+
+## Select Box スタイリング デモ
+- ネイティブ select + CSS装飾（`appearance: none` + SVGアイコン・optgroup）
+- カスタムドロップダウン（div + JS で再実装・hidden input でフォーム送信対応）
+- size属性で常に展開（`size="N"` によるリスト表示・`option:checked` のスタイリング）
+- タグ型マルチ選択（チップUIで追加・削除・hidden input でフォーム送信対応）
+
+https://silkyworkspace.github.io/demos/select-custom

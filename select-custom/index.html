@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Box デモ集</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 40px 28px 32px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #5b6ef5, #9b59b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.9375rem;
+    }
+
+    .grid {
+      max-width: 760px;
+      margin: 48px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .demo-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .demo-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px rgba(91, 110, 245, 0.14);
+      transform: translateY(-2px);
+    }
+
+    .card-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.875rem;
+      border-radius: 8px;
+      margin-bottom: 4px;
+    }
+
+    .demo-card h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .demo-card p {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .card-arrow {
+      color: var(--primary);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .preview-select {
+      appearance: none;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--bg);
+      pointer-events: none;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 580px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Select Box スタイリング デモ</h1>
+    <p>HTMLのSelectボックスをCSSでスタイリングする4つのパターン</p>
+  </header>
+
+  <main>
+    <div class="grid">
+      <a href="page1.html" class="demo-card">
+        <span class="card-num">①</span>
+        <h2>ネイティブ select + CSS装飾</h2>
+        <p><code>appearance: none</code> でブラウザ標準のUIを除去し、SVGアイコンとボーダーカラーで独自スタイル。<code>optgroup</code> で区切りも付与。</p>
+        <span class="card-arrow">デモを見る →</span>
+      </a>
+      <a href="page2.html" class="demo-card">
+        <span class="card-num">②</span>
+        <h2>カスタムドロップダウン（完全制御）</h2>
+        <p>div + JS でドロップダウンを再実装。各 option に色ドット・サブテキスト・ホバーアニメーションを自由に付与できる。</p>
+        <span class="card-arrow">デモを見る →</span>
+      </a>
+      <a href="page3.html" class="demo-card">
+        <span class="card-num">③</span>
+        <h2>size属性で常に展開</h2>
+        <p><code>size="N"</code> でリスト表示に。選択状態は <code>background</code> + <code>color</code> で装飾（ただしブラウザ差異あり）。</p>
+        <span class="card-arrow">デモを見る →</span>
+      </a>
+      <a href="page4.html" class="demo-card">
+        <span class="card-num">④</span>
+        <h2>タグ型マルチ選択</h2>
+        <p>select の代替として、タグをチップで管理するUIパターン。チップをクリックして追加、× で削除できる。</p>
+        <span class="card-arrow">デモを見る →</span>
+      </a>
+    </div>
+  </main>
+  <footer>
+    <p><small>&copy; div.sawa</small></p>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>② カスタムドロップダウン（完全制御）</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    /* ── Custom Dropdown ── */
+    .dropdown {
+      position: relative;
+      width: 100%;
+      user-select: none;
+    }
+    .dropdown-trigger {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      font-family: inherit;
+    }
+    .dropdown-trigger:hover { border-color: #a0aec0; }
+    .dropdown.open .dropdown-trigger {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(91,110,245,0.18);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .trigger-left { display: flex; align-items: center; gap: 10px; }
+    .trigger-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #cbd5e0; flex-shrink: 0; transition: background 0.2s;
+    }
+    .chevron { transition: transform 0.2s; color: var(--muted); flex-shrink: 0; }
+    .dropdown.open .chevron { transform: rotate(180deg); }
+
+    .options-list {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: white;
+      border: 2px solid var(--primary);
+      border-top: none;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      z-index: 50;
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity 0.18s, transform 0.18s;
+    }
+    .dropdown.open .options-list {
+      opacity: 1; transform: translateY(0); pointer-events: auto;
+    }
+    .option {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 16px; cursor: pointer; transition: background 0.12s;
+    }
+    .option:not(:last-child) { border-bottom: 1px solid var(--border); }
+    .option:hover { background: #f8f9ff; }
+    .option.selected { background: var(--primary-light); }
+    .option-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .option-content { flex: 1; }
+    .option-label { font-size: 0.9375rem; font-weight: 600; color: var(--text); display: block; }
+    .option-desc { font-size: 0.75rem; color: var(--muted); margin-top: 1px; display: block; }
+    .check-icon { color: var(--primary); opacity: 0; flex-shrink: 0; transition: opacity 0.15s; }
+    .option.selected .check-icon { opacity: 1; }
+
+    /* ── 説明カード ── */
+    .why-card {
+      background: #fffbeb;
+      border: 1.5px solid #fcd34d;
+      border-radius: 16px;
+      padding: 24px 28px;
+    }
+    .why-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .why-title { font-size: 1rem; font-weight: 700; color: #92400e; }
+    .why-body { color: #78350f; font-size: 0.875rem; line-height: 1.8; }
+    .why-body p + p { margin-top: 10px; }
+    .why-body code {
+      background: #fef3c7; color: #b45309;
+      padding: 1px 5px; border-radius: 4px;
+      font-family: 'Fira Code', monospace; font-size: 0.8rem;
+    }
+    .flow-steps { margin: 14px 0 0; display: flex; flex-direction: column; gap: 10px; }
+    .flow-step { display: flex; align-items: flex-start; gap: 10px; }
+    .step-num {
+      background: #f59e0b; color: white;
+      font-size: 0.6875rem; font-weight: 800;
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .step-text { font-size: 0.875rem; color: #78350f; line-height: 1.6; }
+
+    /* ── フォーム送信 UI ── */
+    .demo-inner { width: 320px; display: flex; flex-direction: column; gap: 14px; }
+    .data-preview {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .data-preview-label {
+      font-size: 0.6875rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px;
+    }
+    .data-row { display: flex; align-items: center; gap: 6px; font-size: 0.875rem; }
+    .data-key { color: var(--primary); font-weight: 700; font-family: monospace; }
+    .data-eq { color: var(--muted); }
+    .data-val { font-weight: 600; color: var(--text); font-family: monospace; }
+    .data-empty { color: var(--muted); font-style: italic; }
+    .submit-btn {
+      width: 100%; padding: 11px;
+      background: var(--primary); color: white;
+      border: none; border-radius: 10px;
+      font-size: 0.9375rem; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    .submit-btn:hover:not(:disabled) { background: #4a5cd4; }
+    .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .result-toast {
+      display: none; align-items: center; gap: 8px;
+      background: #f0fdf4; border: 1.5px solid #22c55e;
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 0.875rem; font-weight: 600; color: #166534;
+    }
+    .result-toast.show { display: flex; }
+    .result-data { font-family: monospace; margin-left: 4px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="topnav">
+      <a href="index.html" class="back-link">← 一覧へ</a>
+      <span class="sep">/</span>
+      <span class="page-name">② カスタムドロップダウン（完全制御）</span>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h1>② カスタムドロップダウン（完全制御）</h1>
+      <p>ネイティブ <code>&lt;select&gt;</code> をやめ、<code>div</code> + <code>button</code> + JS で再実装します。
+        各 option に色ドット・サブテキスト・ホバーアニメーションなどを自由に付与できます。</p>
+    </div>
+
+    <!-- ⚠️ なぜ追加実装が必要か -->
+    <div class="why-card">
+      <div class="why-header">
+        <span style="font-size:1.25rem">⚠️</span>
+        <span class="why-title">このドロップダウンはそのままではフォーム送信できません</span>
+      </div>
+      <div class="why-body">
+        <p>
+          ブラウザが <code>&lt;form&gt;</code> を送信するとき、<code>&lt;input&gt;</code>・<code>&lt;select&gt;</code>・<code>&lt;textarea&gt;</code> の値だけを自動的に集めます。
+          このドロップダウンは <code>&lt;div&gt;</code> と <code>&lt;button&gt;</code> で作られているため、ブラウザには「ただの飾り」と判断され、選択した値が無視されてしまいます。
+        </p>
+        <p>
+          <strong>解決策：</strong> 画面には表示されない <code>&lt;input type="hidden"&gt;</code> を追加し、選択するたびに JavaScript でその値を更新します。
+        </p>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <span class="step-num">①</span>
+            <span class="step-text">ユーザーが選択肢をクリックする</span>
+          </div>
+          <div class="flow-step">
+            <span class="step-num">②</span>
+            <span class="step-text">JavaScript が <code>hiddenInput.value = "published"</code> のように hidden input の値を書き換える</span>
+          </div>
+          <div class="flow-step">
+            <span class="step-num">③</span>
+            <span class="step-text">フォーム送信時に <code>status=published</code> がサーバーへ届く</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- デモカード -->
+    <div class="card">
+      <p class="card-title">ステータス選択（フォーム送信対応版）</p>
+      <div class="demo">
+        <div class="demo-inner">
+          <form id="statusForm">
+
+            <!-- 🔑 ここがポイント: 画面には見えないが値を保持する input -->
+            <input type="hidden" name="status" id="hiddenStatus">
+
+            <!-- カスタムドロップダウン -->
+            <div class="dropdown" id="statusDropdown">
+              <button type="button" class="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="trigger-left">
+                  <span class="trigger-dot" id="triggerDot"></span>
+                  <span id="triggerLabel">ステータスを選択</span>
+                </span>
+                <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 5.5L8 10.5L13 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              <ul class="options-list" role="listbox">
+                <li class="option" role="option" data-value="published" data-color="#22c55e">
+                  <span class="option-dot" style="background:#22c55e"></span>
+                  <span class="option-content">
+                    <span class="option-label">公開中</span>
+                    <span class="option-desc">一般ユーザーに公開されています</span>
+                  </span>
+                  <svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </li>
+                <li class="option" role="option" data-value="draft" data-color="#f59e0b">
+                  <span class="option-dot" style="background:#f59e0b"></span>
+                  <span class="option-content">
+                    <span class="option-label">下書き</span>
+                    <span class="option-desc">保存済み・未公開の状態</span>
+                  </span>
+                  <svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </li>
+                <li class="option" role="option" data-value="review" data-color="#5b6ef5">
+                  <span class="option-dot" style="background:#5b6ef5"></span>
+                  <span class="option-content">
+                    <span class="option-label">レビュー中</span>
+                    <span class="option-desc">承認待ちです</span>
+                  </span>
+                  <svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </li>
+                <li class="option" role="option" data-value="private" data-color="#ef4444">
+                  <span class="option-dot" style="background:#ef4444"></span>
+                  <span class="option-content">
+                    <span class="option-label">非公開</span>
+                    <span class="option-desc">アクセスを制限しています</span>
+                  </span>
+                  <svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </li>
+              </ul>
+            </div>
+
+            <!-- 送信データのプレビュー -->
+            <div class="data-preview">
+              <p class="data-preview-label">送信されるデータ（リアルタイム確認）</p>
+              <div class="data-row">
+                <span class="data-key">status</span>
+                <span class="data-eq">=</span>
+                <span id="dataVal" class="data-empty">（未選択）</span>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn" disabled>送信する</button>
+          </form>
+
+          <!-- 送信後のメッセージ -->
+          <div class="result-toast" id="resultToast">
+            ✓ 送信されました！ &nbsp;<span class="result-data" id="resultData"></span>
+          </div>
+        </div>
+      </div>
+      <p class="note">
+        <code>&lt;input type="hidden" name="status"&gt;</code> は画面に表示されませんが、form 送信時にはしっかり値が含まれます。
+        選択するたびにデータプレビューが更新されるのを確認してみてください。
+      </p>
+    </div>
+  </main>
+  <footer>
+    <p><small>&copy; div.sawa</small></p>
+  </footer>
+
+  <script>
+    const dropdown = document.getElementById('statusDropdown');
+    const trigger = dropdown.querySelector('.dropdown-trigger');
+    const options = dropdown.querySelectorAll('.option');
+    const triggerLabel = document.getElementById('triggerLabel');
+    const triggerDot = document.getElementById('triggerDot');
+    const hiddenStatus = document.getElementById('hiddenStatus');
+    const dataVal = document.getElementById('dataVal');
+    const submitBtn = document.getElementById('submitBtn');
+    const resultToast = document.getElementById('resultToast');
+    const resultData = document.getElementById('resultData');
+
+    // ドロップダウン開閉
+    trigger.addEventListener('click', () => {
+      const isOpen = dropdown.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // 選択時: 表示を更新 + hidden input に値をセット
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        options.forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+
+        const label = option.querySelector('.option-label').textContent;
+        const value = option.dataset.value;
+        const color = option.dataset.color;
+
+        // ① 見た目を更新
+        triggerLabel.textContent = label;
+        triggerDot.style.background = color;
+        dropdown.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+
+        // ② hidden input の値を JS で更新（これがフォーム送信の肝）
+        hiddenStatus.value = value;
+
+        // ③ プレビューに反映
+        dataVal.textContent = value;
+        dataVal.className = 'data-val';
+        submitBtn.disabled = false;
+        resultToast.classList.remove('show');
+      });
+    });
+
+    // 外側クリックで閉じる
+    document.addEventListener('click', e => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // フォーム送信（このデモではページ遷移せずに結果を表示）
+    document.getElementById('statusForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      resultData.textContent = `status=${data.get('status')}`;
+      resultToast.classList.add('show');
+    });
+  </script>
+</body>
+</html>

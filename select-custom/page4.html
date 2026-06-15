@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>④ タグ型マルチ選択</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    /* ── Tag input container ── */
+    .tag-box {
+      width: 100%;
+      max-width: 460px;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      padding: 10px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      cursor: text;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .tag-box:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(91,110,245,0.18);
+    }
+
+    /* ── Chip ── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      animation: chipIn 0.15s ease;
+    }
+    @keyframes chipIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .chip-remove {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      color: var(--primary);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      opacity: 0.6;
+      transition: opacity 0.1s;
+    }
+    .chip-remove:hover { opacity: 1; }
+
+    /* ── Text input inside box ── */
+    .tag-text-input {
+      border: none;
+      outline: none;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      color: var(--text);
+      background: transparent;
+      flex: 1;
+      min-width: 120px;
+      padding: 5px 4px;
+    }
+    .tag-text-input::placeholder { color: var(--muted); }
+
+    /* ── Suggestions ── */
+    .suggestions-wrap {
+      width: 100%;
+      max-width: 460px;
+    }
+    .suggestions-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 10px;
+    }
+    .suggestions-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .suggestion-chip {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.12s, background 0.12s, color 0.12s;
+    }
+    .suggestion-chip:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .suggestion-chip.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .demo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    /* ── 説明カード ── */
+    .why-card {
+      background: #fffbeb;
+      border: 1.5px solid #fcd34d;
+      border-radius: 16px;
+      padding: 24px 28px;
+    }
+    .why-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .why-title { font-size: 1rem; font-weight: 700; color: #92400e; }
+    .why-body { color: #78350f; font-size: 0.875rem; line-height: 1.8; }
+    .why-body p + p { margin-top: 10px; }
+    .why-body code {
+      background: #fef3c7; color: #b45309;
+      padding: 1px 5px; border-radius: 4px;
+      font-family: 'Fira Code', monospace; font-size: 0.8rem;
+    }
+    .flow-steps { margin: 14px 0 0; display: flex; flex-direction: column; gap: 10px; }
+    .flow-step { display: flex; align-items: flex-start; gap: 10px; }
+    .step-num {
+      background: #f59e0b; color: white;
+      font-size: 0.6875rem; font-weight: 800;
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .step-text { font-size: 0.875rem; color: #78350f; line-height: 1.6; }
+
+    /* ── フォーム送信 UI ── */
+    .data-preview {
+      width: 100%;
+      max-width: 460px;
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .data-preview-label {
+      font-size: 0.6875rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px;
+    }
+    .data-row { display: flex; align-items: flex-start; gap: 6px; font-size: 0.875rem; }
+    .data-key { color: var(--primary); font-weight: 700; font-family: monospace; flex-shrink: 0; }
+    .data-eq { color: var(--muted); flex-shrink: 0; }
+    .data-val { font-weight: 600; color: var(--text); font-family: monospace; word-break: break-all; }
+    .data-empty { color: var(--muted); font-style: italic; }
+    .submit-btn {
+      width: 100%;
+      max-width: 460px;
+      padding: 11px;
+      background: var(--primary); color: white;
+      border: none; border-radius: 10px;
+      font-size: 0.9375rem; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    .submit-btn:hover:not(:disabled) { background: #4a5cd4; }
+    .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .result-toast {
+      display: none; align-items: flex-start; gap: 8px;
+      background: #f0fdf4; border: 1.5px solid #22c55e;
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 0.875rem; font-weight: 600; color: #166534;
+      width: 100%; max-width: 460px;
+      word-break: break-all;
+    }
+    .result-toast.show { display: flex; }
+    .result-data { font-family: monospace; font-weight: 400; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="topnav">
+      <a href="index.html" class="back-link">← 一覧へ</a>
+      <span class="sep">/</span>
+      <span class="page-name">④ タグ型マルチ選択</span>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h1>④ タグ型マルチ選択</h1>
+      <p><code>&lt;select multiple&gt;</code> の代替として、選択肢をチップ（タグ）で管理するUIパターンです。
+        候補をクリックして追加、<code>×</code> で削除、テキスト入力でカスタムタグも追加できます。</p>
+    </div>
+
+    <!-- ⚠️ なぜ追加実装が必要か -->
+    <div class="why-card">
+      <div class="why-header">
+        <span style="font-size:1.25rem">⚠️</span>
+        <span class="why-title">タグの状態はそのままではフォーム送信できません</span>
+      </div>
+      <div class="why-body">
+        <p>
+          タグの一覧は JavaScript の <code>Set</code>（内部的なデータ置き場）に保存されているだけで、<code>&lt;input&gt;</code> の <code>value</code> には入っていません。このままフォームを送信しても、サーバーにはタグの情報が届きません。
+        </p>
+        <p>
+          <strong>解決策：</strong> 画面には表示されない <code>&lt;input type="hidden"&gt;</code> を追加し、タグが追加・削除されるたびに JavaScript でカンマ区切り（例: <code>"デザイン,CSS,JavaScript"</code>）の値に更新します。
+        </p>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <span class="step-num">①</span>
+            <span class="step-text">ユーザーがタグを追加・削除する</span>
+          </div>
+          <div class="flow-step">
+            <span class="step-num">②</span>
+            <span class="step-text">JavaScript が <code>hiddenInput.value = "デザイン,CSS,JavaScript"</code> のように hidden input の値を書き換える</span>
+          </div>
+          <div class="flow-step">
+            <span class="step-num">③</span>
+            <span class="step-text">フォーム送信時に <code>tags=デザイン,CSS,JavaScript</code> がサーバーへ届く</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- デモカード -->
+    <div class="card">
+      <p class="card-title">スキルタグ選択（フォーム送信対応版）</p>
+      <div class="demo">
+        <form id="tagsForm">
+          <div class="demo-col">
+
+            <!-- 🔑 ここがポイント: タグ一覧をカンマ区切りで保持する hidden input -->
+            <input type="hidden" name="tags" id="hiddenTags">
+
+            <!-- タグ入力ボックス -->
+            <div class="tag-box" id="tagBox">
+              <input
+                type="text"
+                class="tag-text-input"
+                id="tagInput"
+                placeholder="タグを追加..."
+                autocomplete="off"
+              >
+            </div>
+
+            <!-- 候補 -->
+            <div class="suggestions-wrap">
+              <p class="suggestions-label">候補</p>
+              <div class="suggestions-list" id="suggestionsList">
+                <button type="button" class="suggestion-chip" data-tag="JavaScript">JavaScript</button>
+                <button type="button" class="suggestion-chip" data-tag="React">React</button>
+                <button type="button" class="suggestion-chip" data-tag="TypeScript">TypeScript</button>
+                <button type="button" class="suggestion-chip" data-tag="HTML">HTML</button>
+                <button type="button" class="suggestion-chip" data-tag="CSS">CSS</button>
+                <button type="button" class="suggestion-chip" data-tag="UI/UX">UI/UX</button>
+                <button type="button" class="suggestion-chip" data-tag="Python">Python</button>
+                <button type="button" class="suggestion-chip" data-tag="Node.js">Node.js</button>
+              </div>
+            </div>
+
+            <!-- 送信データのプレビュー -->
+            <div class="data-preview">
+              <p class="data-preview-label">送信されるデータ（リアルタイム確認）</p>
+              <div class="data-row">
+                <span class="data-key">tags</span>
+                <span class="data-eq">=</span>
+                <span id="dataVal" class="data-empty">（タグなし）</span>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn" disabled>送信する</button>
+
+            <!-- 送信後のメッセージ -->
+            <div class="result-toast" id="resultToast">
+              ✓ 送信されました！<br><span class="result-data" id="resultData"></span>
+            </div>
+
+          </div>
+        </form>
+      </div>
+      <p class="note">
+        候補チップをクリックでトグル追加／削除。入力欄に文字を打って <code>Enter</code> でカスタムタグも追加できます。
+        <code>Backspace</code> キーで末尾のタグを削除。タグが変わるたびに「送信されるデータ」が更新されます。
+      </p>
+    </div>
+  </main>
+  <footer>
+    <p><small>&copy; div.sawa</small></p>
+  </footer>
+
+  <script>
+    const INITIAL_TAGS = ['デザイン', 'CSS'];
+    let selectedTags = new Set(INITIAL_TAGS);
+
+    const tagBox = document.getElementById('tagBox');
+    const tagInput = document.getElementById('tagInput');
+    const suggestionsList = document.getElementById('suggestionsList');
+    const hiddenTags = document.getElementById('hiddenTags');
+    const dataVal = document.getElementById('dataVal');
+    const submitBtn = document.getElementById('submitBtn');
+    const resultToast = document.getElementById('resultToast');
+    const resultData = document.getElementById('resultData');
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])
+      );
+    }
+
+    function renderChips() {
+      // 既存チップを削除
+      tagBox.querySelectorAll('.chip').forEach(c => c.remove());
+
+      // チップを input の前に挿入
+      [...selectedTags].forEach(tag => {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.innerHTML =
+          `${escapeHtml(tag)}<button class="chip-remove" data-tag="${escapeHtml(tag)}" aria-label="${escapeHtml(tag)}を削除">×</button>`;
+        tagBox.insertBefore(chip, tagInput);
+      });
+
+      // 候補ボタンの選択状態を同期
+      suggestionsList.querySelectorAll('.suggestion-chip').forEach(btn => {
+        btn.classList.toggle('active', selectedTags.has(btn.dataset.tag));
+      });
+
+      // ① hidden input の value をカンマ区切りで更新（フォーム送信の肝）
+      const tagsArray = [...selectedTags];
+      hiddenTags.value = tagsArray.join(',');
+
+      // ② プレビュー表示を更新
+      if (tagsArray.length > 0) {
+        dataVal.textContent = tagsArray.join(',');
+        dataVal.className = 'data-val';
+        submitBtn.disabled = false;
+      } else {
+        dataVal.textContent = '（タグなし）';
+        dataVal.className = 'data-empty';
+        submitBtn.disabled = true;
+      }
+
+      resultToast.classList.remove('show');
+    }
+
+    // × ボタンでチップを削除
+    tagBox.addEventListener('click', e => {
+      const btn = e.target.closest('.chip-remove');
+      if (btn) {
+        selectedTags.delete(btn.dataset.tag);
+        renderChips();
+        tagInput.focus();
+      }
+    });
+
+    // タグボックスをクリックしたら input にフォーカス
+    tagBox.addEventListener('click', e => {
+      if (!e.target.closest('.chip')) tagInput.focus();
+    });
+
+    // 候補チップをクリックでトグル
+    suggestionsList.addEventListener('click', e => {
+      const btn = e.target.closest('.suggestion-chip');
+      if (!btn) return;
+      const tag = btn.dataset.tag;
+      if (selectedTags.has(tag)) {
+        selectedTags.delete(tag);
+      } else {
+        selectedTags.add(tag);
+      }
+      renderChips();
+    });
+
+    // キーボード入力
+    tagInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const value = tagInput.value.trim();
+        if (value && !selectedTags.has(value)) {
+          selectedTags.add(value);
+          tagInput.value = '';
+          renderChips();
+        }
+      }
+      if (e.key === 'Backspace' && tagInput.value === '' && selectedTags.size > 0) {
+        const tags = [...selectedTags];
+        selectedTags.delete(tags[tags.length - 1]);
+        renderChips();
+      }
+    });
+
+    // フォーム送信（このデモではページ遷移せずに結果を表示）
+    document.getElementById('tagsForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      resultData.textContent = `tags=${data.get('tags')}`;
+      resultToast.classList.add('show');
+    });
+
+    renderChips();
+  </script>
+</body>
+</html>

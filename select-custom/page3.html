@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>③ size属性で常に展開</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    /* ── List Select ── */
+    .list-select {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 220px;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      outline: none;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      background: white;
+      cursor: pointer;
+      overflow: hidden;
+      font-family: inherit;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .list-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(91,110,245,0.18);
+    }
+    .list-select option {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+      font-size: 0.9375rem;
+    }
+    /* 選択状態 — linear-gradient trick でOS上書きを回避 */
+    .list-select option:checked {
+      background: linear-gradient(0deg, #dcfce7 0%, #dcfce7 100%);
+      color: #14532d;
+      font-weight: 700;
+    }
+
+    /* ── Compact variant ── */
+    .list-select-sm {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 180px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      background: white;
+      cursor: pointer;
+      overflow: hidden;
+      font-family: inherit;
+      transition: border-color 0.15s;
+    }
+    .list-select-sm:focus { border-color: var(--primary); }
+    .list-select-sm option {
+      padding: 9px 14px;
+    }
+    .list-select-sm option:checked {
+      background: linear-gradient(0deg, #eef0ff 0%, #eef0ff 100%);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* ── Side by side layout ── */
+    .side-by-side {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .list-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .list-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="topnav">
+      <a href="index.html" class="back-link">← 一覧へ</a>
+      <span class="sep">/</span>
+      <span class="page-name">③ size属性で常に展開</span>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h1>③ size属性で常に展開</h1>
+      <p><code>&lt;select size="N"&gt;</code> を付けると、クリックで開くドロップダウンではなくリスト表示になります。
+        選択行のハイライトは <code>option:checked</code> で CSS を当てますが、ブラウザによって見え方が異なります。</p>
+    </div>
+
+    <!-- 基本デモ -->
+    <div class="card">
+      <p class="card-title">都市リスト（size="6"）</p>
+      <div class="demo">
+        <select class="list-select" size="6">
+          <option>東京</option>
+          <option>大阪</option>
+          <option selected>京都</option>
+          <option>札幌</option>
+          <option>福岡</option>
+          <option>名古屋</option>
+        </select>
+      </div>
+      <p class="note">
+        <code>size="6"</code> で 6 行分を常時展開。<code>option:checked</code> の背景に
+        <code>linear-gradient</code> を使うことで一部ブラウザのOS描画を上書きできます（Chrome / Edge で有効、Safari では効果が限定的）。
+      </p>
+    </div>
+
+    <!-- 並べて比較 -->
+    <div class="card">
+      <p class="card-title">ハイライト色バリエーション</p>
+      <div class="demo">
+        <div class="side-by-side">
+          <div class="list-item">
+            <span class="list-label">Green（デフォルト）</span>
+            <select class="list-select" size="5">
+              <option>りんご</option>
+              <option selected>バナナ</option>
+              <option>みかん</option>
+              <option>ぶどう</option>
+              <option>いちご</option>
+            </select>
+          </div>
+          <div class="list-item">
+            <span class="list-label">Purple</span>
+            <select class="list-select-sm" size="5">
+              <option>JavaScript</option>
+              <option selected>TypeScript</option>
+              <option>React</option>
+              <option>Vue</option>
+              <option>Svelte</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <p class="note">
+        左は緑系（<code>#dcfce7</code>）、右は紫系（<code>#eef0ff</code>）のハイライト。
+        <code>multiple</code> 属性と組み合わせると複数行を同時選択することも可能です。
+      </p>
+    </div>
+  </main>
+  <footer>
+    <p><small>&copy; div.sawa</small></p>
+  </footer>
+</body>
+</html>
