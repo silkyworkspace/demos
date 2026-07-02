@@ -1,0 +1,109 @@
+@charset "utf-8";
+
+/*********** 共通設定 ***********/
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: .05em;
+    color: #333;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 700;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+/*** header ***/
+header {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+/*** section ***/
+.section {
+    padding: 2rem 1rem;
+}
+
+/*** footer ***/
+footer {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* 直後に波型セクションが続く場合、波と重ならないよう下部の余白を広げる */
+.section--intro {
+    padding-bottom: 200px;
+}
+
+/*********** 波型グラデーションセクション ***********/
+/*
+ * 背景とコンテンツを別レイヤーに分離し、mask-imageで波形に切り抜く。
+ * グラデーションは1枚の背景としてこの要素だけに描画する
+ * （波形部分/本体部分で背景を分割すると、境界でグラデーションの
+ *   角度基準がズレて継ぎ目が見えてしまうため）。
+ * 波の凹凸は images/wave-mask.svg 側で高さのごく一部に収めてあるので、
+ * mask-size: 100% 100% で要素の高さに引き伸ばしても
+ * 波の見た目の高さはほぼ一定に保たれる。
+ */
+.wave-section {
+    position: relative;
+    /*
+     * セクション自体を波の高さ分だけ前セクションにめり込ませる。
+     * こうしないと、波の凹み部分の下に前セクションの背景が回り込まず、
+     * bodyの背景（白）が透けて隙間に見えてしまう。
+     */
+    margin-top: -140px;
+}
+
+.wave-section__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    mask-image: url("../images/wave-mask.svg");
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    -webkit-mask-image: url("../images/wave-mask.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+}
+
+.wave-section__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 180px 40px;
+    color: #fff;
+    text-align: center;
+}
+
+.wave-section--sunset .wave-section__bg {
+    background: linear-gradient(150deg, #ff6a00 0%, #ee0979 100%);
+}
+
+.wave-section--ocean .wave-section__bg {
+    background: linear-gradient(150deg, #00c6ff 0%, #0072ff 100%);
+}
