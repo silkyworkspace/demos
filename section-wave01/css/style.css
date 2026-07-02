@@ -34,6 +34,11 @@ h3 {
     margin-bottom: 1rem;
 }
 
+main p {
+    width: fit-content;
+    margin-inline: auto;
+}
+
 /*** header ***/
 header {
     border-bottom: 1px solid #ccc;
@@ -93,7 +98,6 @@ footer {
 .wave-section {
     padding-top: 100px;
     color: #fff;
-    text-align: center;
 }
 
 .wave-section__inner {
