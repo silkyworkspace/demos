@@ -77,3 +77,19 @@ https://silkyworkspace.github.io/demos/modal
 - タグ型マルチ選択（チップUIで追加・削除・hidden input でフォーム送信対応）
 
 https://silkyworkspace.github.io/demos/select-custom
+
+
+## セクション間 波型区切り デモ
+- CSSの`mask`は使わず、Figmaで作成した波形SVG（色を含む）を疑似要素`::after`の`background-image`として配置する方式
+- 色はSVG側に焼き込まれているため、CSS側での色指定が不要
+- 波は「次に来る色で、自分のセクションの下端（`bottom: 0`）に配置する」というルールに統一。次セクション側を負の`top`でせり上げる実装だと数値のズレが隙間になり、SP/TBで崩れていたため、bottom基準にして波をセクション内部で完結させた
+- SVGに`preserveAspectRatio="none"`を明示。これがないと`background-size: 100% 100%`で指定しても一部ブラウザでアスペクト比補正が働き、要素の縦横比がSVGの比率から離れるSP/TB幅で下端にごく薄い透過（隙間）が生じていた
+
+https://silkyworkspace.github.io/demos/section-wave01
+
+## CSS mask 波形グラデーション区切り デモ
+- 背景専用レイヤー`.wave-section__bg`に`mask-image`で波形SVG（形のみ、白黒）を適用し、`background`にグラデーションを指定
+- マスクは形だけを担当し、色はCSS側の`linear-gradient`で自由に変更できるため、セクションごとに配色違いのバリエーションを作りやすい
+- セクション自体を波の高さ分だけ前セクションに`margin-top`でめり込ませることで、波の凹み部分に前セクションの背景が回り込み、隙間なく連結される
+
+https://silkyworkspace.github.io/demos/section-wave02

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セクション間 波型区切り デモ</title>
+    <!-- リセットCSSの読み込み -->
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- 自作CSSの読み込み -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jsが必要なデモの場合はここに <script type="module" src="js/script.js"></script> を追加する -->
+</head>
+
+<body>
+    <header>
+        <h1>セクション間 波型区切り デモ</h1>
+    </header>
+
+    <main>
+        <section id="sec01" class="section section--intro">
+            <h2>白背景セクション</h2>
+            <p>
+                ここまでは白背景のセクションです。スクロールすると、上端が波型になったセクションが現れます。<br>
+                CSSの<code>mask</code>は使わず、波形パスを描いたSVGをセクション上端に重ねて単色で塗りつぶす方式です。
+            </p>
+        </section>
+
+        <section id="sec02" class="section wave-section wave-section--purple">
+            <div class="wave-section__inner">
+                <h2>波型セクション（青）</h2>
+                <p>
+                    Figmaで作成した<code>wave01.svg</code>を、擬似要素<code>::before</code>の<code>background-image</code>として配置しています。色はSVG側に焼き込まれているため、CSS側で色を指定する必要はありません。
+                </p>
+            </div>
+        </section>
+
+        <section id="sec03" class="section wave-section wave-section--orange">
+            <div class="wave-section__inner">
+                <h2>波型セクション（オレンジ）</h2>
+                <p>
+                    波の形が変わってもCSSは共通です。セクションごとに読み込む<code>background-image</code>を差し替えるだけで、異なる波のバリエーションを表現できます。
+                </p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p><small>&copy; div.sawa</small></p>
+    </footer>
+
+</body>
+
+</html>

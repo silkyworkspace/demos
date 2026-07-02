@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+/*********** 共通設定 ***********/
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: .05em;
+    color: #333;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 700;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+/*** header ***/
+header {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+/*** section ***/
+.section {
+    padding: 2rem 1rem;
+}
+
+/*** footer ***/
+footer {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding: 1rem;
+    margin-top: 2rem;
+}

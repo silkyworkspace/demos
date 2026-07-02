@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS mask 波形グラデーション区切り デモ</title>
+    <!-- リセットCSSの読み込み -->
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- 自作CSSの読み込み -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jsが必要なデモの場合はここに <script type="module" src="js/script.js"></script> を追加する -->
+</head>
+
+<body>
+    <header>
+        <h1>CSS mask 波形グラデーション区切り デモ</h1>
+    </header>
+
+    <main>
+        <section id="sec01" class="section section--intro">
+            <h2>白背景セクション</h2>
+            <p>
+                ここまでは白背景のセクションです。スクロールすると、CSSの<code>mask</code>で波型に切り抜かれ、グラデーションが適用されたセクションが現れます。
+            </p>
+        </section>
+
+        <section id="sec02" class="section wave-section wave-section--sunset">
+            <div class="wave-section__bg" aria-hidden="true"></div>
+            <div class="wave-section__inner">
+                <h2>波型セクション（サンセット）</h2>
+                <p>
+                    背景専用レイヤー<code>.wave-section__bg</code>に<code>mask-image</code>で波形SVGを適用し、<code>background</code>にグラデーションを指定しています。マスクは形だけを担当し、色はCSS側で自由に変更できます。
+                </p>
+            </div>
+        </section>
+
+        <section id="sec03" class="section wave-section wave-section--ocean">
+            <div class="wave-section__bg" aria-hidden="true"></div>
+            <div class="wave-section__inner">
+                <h2>波型セクション（オーシャン）</h2>
+                <p>
+                    波形パスは共通の<code>wave-mask.svg</code>を使い回し、セクションごとに<code>background</code>のグラデーションだけを差し替えています。
+                </p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p><small>&copy; div.sawa</small></p>
+    </footer>
+
+</body>
+
+</html>

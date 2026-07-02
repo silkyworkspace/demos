@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+/*********** 共通設定 ***********/
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: .05em;
+    color: #333;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 700;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+/*** header ***/
+header {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+/*** section ***/
+.section {
+    padding: 2rem 1rem;
+}
+
+/*** footer ***/
+footer {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/*********** 波型セクション ***********/
+/*
+ * CSSのmaskは使わず、Figmaで作成したSVG（色を含む）を
+ * 擬似要素::afterのbackground-imageとして配置する方式。
+ *
+ * 「次のセクションの波を、次のセクション側で負のtopにより
+ * 前セクションにせり上げる」実装だと、topと高さの数値がずれた
+ * 分だけ隙間ができ、SP/TBで目立つ帯として崩れていた。
+ * そこで「波は必ず自分の下端(bottom: 0)に、次に来る色で配置する」
+ * というルールに統一する。bottom基準なのでtopのマジックナンバーが
+ * 不要になり、波はセクション内部で完結するため隙間が生まれない。
+ */
+.section--intro,
+.wave-section {
+    position: relative;
+    /* 波の高さ(120px)+テキストとの余白ぶん、下側に余白を確保する */
+    padding-bottom: 160px;
+}
+
+.section--intro::after,
+.wave-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+/* 白背景セクションの下端に、次（青）の波を配置 */
+.section--intro::after {
+    background-image: url("../images/wave01.svg");
+}
+
+.wave-section {
+    padding-top: 100px;
+    color: #fff;
+    text-align: center;
+}
+
+.wave-section__inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.wave-section--purple {
+    background-color: #4a6fa5;
+}
+
+/* 青セクションの下端に、次（オレンジ）の波を配置 */
+.wave-section--purple::after {
+    background-image: url("../images/wave02.svg");
+}
+
+.wave-section--orange {
+    background-color: #e39a46;
+    /* 最後のセクションなので次の波は不要 */
+    padding-bottom: 100px;
+}
+
+.wave-section--orange::after {
+    content: none;
+}
