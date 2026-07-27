@@ -93,3 +93,16 @@ https://silkyworkspace.github.io/demos/section-wave01
 - セクション自体を波の高さ分だけ前セクションに`margin-top`でめり込ませることで、波の凹み部分に前セクションの背景が回り込み、隙間なく連結される
 
 https://silkyworkspace.github.io/demos/section-wave02
+
+## フレックスボックスの練習
+Flexboxの基本を8つのサンプルで確認する練習用ページ
+- 基本(`display: flex;`の指定)
+- 並ぶ向き（`flex-direction`）
+- 折り返し（`flex-wrap`）
+- 水平方向の揃え（`justify-content`）
+- 垂直方向の揃え（`align-items`）
+- 順番の並び替え（`order`）
+- 子要素個別の垂直方向の揃え（`align-self`）
+- 子要素の幅の指定（`flex-basis` / `flex`）
+
+https://silkyworkspace.github.io/demos/flexbox-first
