@@ -37,71 +37,24 @@ section {
 }
 
 /* --  1.基本  ----- */
-#basic .container {
-  display: flex;
-  gap: 16px;
-}
+
 
 /* -- 2.並ぶ向き ----- */
-#direction .container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+
 
 /* -- 3.折り返し ----- */
-#wrap .container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
+
 
 /* -- 4.水平方向の揃え ----- */
-#justify .container {
-  display: flex;
-  justify-content: space-between;
-  /* gap: 16px; */
-}
+
 
 /* -- 5.垂直方向の揃え ----- */
-#align .item:nth-child(2) {
-  font-size: 32px;
-}
 
-#align .container {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
 
 /* -- 6.順番の並び替え ----- */
-#order .container {
-  display: flex;
-  gap: 16px;
-}
 
-#order .item01 { order: 2;}
-#order .item02 { order: 3;}
-#order .item03 { order: 4;}
-#order .item04 { order: 1;}
 
 /* -- 7.子要素の垂直方向の揃え ----- */
-#align_self .container {
-  display: flex;
-  gap: 16px;
-}
 
-#align_self .item02 {
-  align-self: flex-start;
-}
 
 /* -- 8.子要素の幅の指定 ----- */
-#basis .container {
-  display: flex;
-  gap: 16px;
-}
-
-#basis .item01 { flex-basis: 200px; }
-#basis .item02 { flex-basis: 80px; }
-#basis .item03 { flex-basis: 25%; }
-#basis .item04 { flex: 1; }

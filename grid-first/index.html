@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CSS Gridの基本(列と行の指定・fr単位・間隔・auto-fit/auto-fill)を9つのサンプルで学べる練習用ページです。">
+    <title>グリッドレイアウト</title>
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link rel="stylesheet" href="css/style_answer.css">
+</head>
+
+<body>
+    <h1>グリッドレイアウトの練習</h1>
+
+    <!-- ===== 1.基本 ===== -->
+    <section id="basic">
+        <h2>基本の指定</h2>
+        <p>幅<code>100px</code>の列が4つ並び、Item 1〜4が横一列に並ぶ。</p>
+        <div class="container">
+            <div class="item">Item 1</div>
+            <div class="item">Item 2</div>
+            <div class="item">Item 3</div>
+            <div class="item">Item 4</div>
+        </div>
+    </section>
+
+    <!-- ===== 2.列数と幅の指定 ===== -->
+    <section id="columns">
+        <h2>列数と幅の指定（<code>grid-template-columns</code> / <code>fr</code>）</h2>
+        <p><code>fr</code>は「コンテナの残り幅を分け合う比率」を表す単位（fraction＝分数の意味）。<code>px</code>のような絶対値ではなく、余った幅をどう配分するかを指定する。</p>
+        <p><code>repeat(4, 1fr)</code>で同じ幅の列を4つ作り、Item 1〜4が等幅で並ぶ。</p>
+        <div class="container">
+            <div class="item">Item 1</div>
+            <div class="item">Item 2</div>
+            <div class="item">Item 3</div>
+            <div class="item">Item 4</div>
+        </div>
+    </section>
+
+    <!-- ===== 3.fr単位で幅を分配 ===== -->
+    <section id="fr">
+        <h2><code>fr</code>単位で幅を分配</h2>
+        <p><code>1fr 2fr 1fr</code>の指定で、3列の幅が1:2:1の比率になる。</p>
+        <div class="container">
+            <div class="item">Item 1</div>
+            <div class="item">Item 2</div>
+            <div class="item">Item 3</div>
+        </div>
+    </section>
+
+    <!-- ===== 4.固定幅とfrの混在 ===== -->
+    <section id="mixed">
+        <h2>固定幅と<code>fr</code>の混在</h2>
+        <p>1列目を<code>150px</code>固定にし、残った幅を2列目・3列目で均等に分ける。</p>
+        <div class="container">
+            <div class="item">Item 1</div>
+            <div class="item">Item 2</div>
+            <div class="item">Item 3</div>
+        </div>
+    </section>
+
+    <!-- ===== 5.列と行の間隔 ===== -->
+    <section id="gap">
+        <h2>列と行の間隔（<code>gap</code>）</h2>
+        <p>6個のItemが3列×2行に自動配置され、行間<code>8px</code>・列間<code>24px</code>の隙間ができる。</p>
+        <div class="container">
+            <div class="item">Item 1</div>
+            <div class="item">Item 2</div>
+            <div class="item">Item 3</div>
+            <div class="item">Item 4</div>
+            <div class="item">Item 5</div>
+            <div class="item">Item 6</div>
+        </div>
+    </section>
+
+    <!-- ===== 6.行の指定 ===== -->
+    <section id="rows">
+        <h2>行の指定（<code>grid-template-rows</code>）</h2>
+        <p>1行目の高さを<code>80px</code>、2行目の高さを<code>150px</code>に指定し、3列×2行のグリッドになる。</p>
+        <div class="container">
+            <div class="item">Item 1</div>
+            <div class="item">Item 2</div>
+            <div class="item">Item 3</div>
+            <div class="item">Item 4</div>
+            <div class="item">Item 5</div>
+            <div class="item">Item 6</div>
+        </div>
+    </section>
+
+    <!-- ===== 7.列と行を組み合わせる ===== -->
+    <section id="combination">
+        <h2>列と行を組み合わせる</h2>
+        <p>列は<code>100px</code>と<code>1fr</code>（残り全部）の2列、行は<code>60px</code>・<code>1fr</code>（残り全部）・<code>40px</code>の3行。</p>
+        <ul>
+            <li>Item 1：1行目に2列とも占有して配置</li>
+            <li>Item 2：2行目1列目に配置</li>
+            <li>Item 3：2行目2列目に配置</li>
+            <li>Item 4：3行目に2列とも占有して配置</li>
+            <li>Item 1・Item 4は<code>grid-column: 1 / -1;</code>で指定。<code>-1</code>は「一番最後の列ライン」を指し、列数が変わっても常に全幅になる。今回は列が2本（ライン3本）なので、<code>grid-column: 1 / 3;</code>と書いても結果は同じ</li>
+        </ul>
+        <div class="container">
+            <div class="item item01">Item 1</div>
+            <div class="item item02">Item 2</div>
+            <div class="item item03">Item 3</div>
+            <div class="item item04">Item 4</div>
+        </div>
+    </section>
+
+    <!-- ===== 8.列を自動生成する ===== -->
+    <section id="autofill">
+        <h2>【応用】列を自動生成する（<code>auto-fill</code>）</h2>
+        <p><code>repeat(auto-fill, minmax(120px, 1fr))</code>で、幅<code>120px</code>以上の列をコンテナに収まるだけ自動で作る。</p>
+        <ul>
+            <li>列の本数はコンテナ幅から自動計算される（今回は3個より多い本数ができる）</li>
+            <li>Itemが3個で列が余っても、中身のない列トラックはそのまま残る</li>
+            <li>結果、Itemは<code>120px</code>程度の幅のまま左詰めで並ぶ</li>
+        </ul>
+        <div class="container">
+            <div class="item">Item 1</div>
+            <div class="item">Item 2</div>
+            <div class="item">Item 3</div>
+        </div>
+    </section>
+
+    <!-- ===== 9.空の列をつぶす ===== -->
+    <section id="autofit">
+        <h2>【応用】空の列をつぶす（<code>auto-fit</code>）</h2>
+        <p><code>repeat(auto-fit, minmax(120px, 1fr))</code>で、<code>auto-fill</code>と同じ本数の列を自動で作る。</p>
+        <ul>
+            <li>列の本数の自動計算は<code>auto-fill</code>と同じ</li>
+            <li>違いはここから：中身のない空の列トラックが幅<code>0</code>につぶれる</li>
+            <li>つぶれた分の幅をItem側が吸収し、<code>minmax</code>の上限（<code>1fr</code>）まで広がる</li>
+        </ul>
+        <p><strong>auto-fillとの違い：</strong>余った列を「空のまま残す」のが<code>auto-fill</code>、「なくしてItemを広げる」のが<code>auto-fit</code>。</p>
+        <div class="container">
+            <div class="item">Item 1</div>
+            <div class="item">Item 2</div>
+            <div class="item">Item 3</div>
+        </div>
+    </section>
+
+</body>
+
+</html>

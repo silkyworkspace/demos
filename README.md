@@ -106,3 +106,17 @@ Flexboxの基本を8つのサンプルで確認する練習用ページ
 - 子要素の幅の指定（`flex-basis` / `flex`）
 
 https://silkyworkspace.github.io/demos/flexbox-first
+
+## グリッドレイアウトの練習
+CSS Gridの基本を9つのサンプルで確認する練習用ページ
+- 基本の指定
+- 列数と幅の指定（`grid-template-columns` / `fr`）
+- `fr`単位で幅を分配
+- 固定幅と`fr`の混在
+- 列と行の間隔（`gap`）
+- 行の指定（`grid-template-rows`）
+- 列と行を組み合わせる（`grid-column` / `grid-row`）
+- 【応用】列を自動生成する（`auto-fill`）
+- 【応用】空の列をつぶす（`auto-fit`）
+
+https://silkyworkspace.github.io/demos/grid-first
