@@ -120,13 +120,14 @@ code {
 }
 
 /* -1は「一番最後の列ライン」を指す。列数が増減しても常に全幅になる（1 / 3のように番号を固定すると、列数が増えたときに全幅にならない） */
-#combination .item01 { grid-column: 1 / -1; }
+#combination .item01 { grid-column: 1 / 3; }
 #combination .item04 { grid-column: 1 / -1; }
 
 /* -- 8.列を自動生成する（auto-fill） ----- */
 #autofill .container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, 120px); */
   gap: 16px;
 }
 
